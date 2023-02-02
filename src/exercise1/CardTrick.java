@@ -1,37 +1,54 @@
 package exercise1;
+import java.util.Scanner;
 
 /**
  * A class that fills a hand of 7 cards with random Card Objects and then asks the user to pick a card.
  * It then searches the array of cards for the match to the user's card. 
  * To be used as starting code in Exercise
  *
- * @author dancye
- * @author Paul Bonenfant Jan 25, 2022 
+ * @author RealNabeal
+ * @author Nabil Abdi Feb 01, 2023 
  */
 public class CardTrick {
     
     public static void main(String[] args) {
-        
+        Scanner sc = new Scanner(System.in);
+
         Card[] hand = new Card[7];
 
         for (int i = 0; i < hand.length; i++) {
-            Card card = new Card();
-            //card.setValue(insert call to random number generator here)
-            // 
-            //card.setSuit(Card.SUITS[insert call to random number between 0-3 here])
-            // Hint: You can use Random -> random.nextInt(n) to get a random number between 0 and n-1 (inclusive)
-            //       Don't worry about duplicates at this point
+            hand[i] = new Card();
+            hand[i].setValue((int)(Math.random() * 13) + 1);
+            hand[i].setSuit(Card.SUITS[(int)(Math.random() * 4)]);
         }
 
-        // insert code to ask the user for Card value and suit, create their card
-        // and search the hand here. 
-        // Hint: You can ask for values 1 to 10, and then
-        //       11 for jack, 12 for queen, etc. (remember arrays are 0-based though)
-        //       1 for Hearts, 2 for Diamonds, etc. (remember arrays are 0-based though)
-        // 
-        // Then loop through the cards in the array to see if there's a match.
-        
-        // If the guess is successful, invoke the printInfo() method below.
+        for(int i = 0; i < hand.length; i++){
+            System.out.println(hand[i]);
+        }
+
+        int userValue;
+        String userSuit;
+
+        System.out.println("Enter the number of your card (1-13 inclusive) ");
+        userValue = sc.nextInt();
+
+        System.out.println("Enter your suit: (Spades, Hearts etc...)");
+        userSuit = sc.next();
+
+        Card userCard = new Card();
+        userCard.setSuit(userSuit);
+        userCard.setValue(userValue);
+
+        //System.out.println("----------\n" + userCard); To see if the toString works, as well as debugging
+
+        for (int i = 0; i < hand.length; i++){
+            if (hand[i].getValue() == userCard.getValue() && hand[i].getSuit().equals(userCard.getSuit())){
+                System.out.println("You have a card match!!!");
+                printInfo();
+            }else {
+                break;
+            }
+        }
         
     }
 
